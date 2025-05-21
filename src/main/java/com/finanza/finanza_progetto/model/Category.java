@@ -37,6 +37,10 @@ public class Category {
         this.concepts = concepts;
     }
 
+    public Category() {
+
+    }
+
     public Integer getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package com.finanza.finanza_progetto.model;
 
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -59,6 +58,10 @@ public class Concept {
         this.description = description;
         this.imgUrl = imgUrl;
         this.level = level;
+
+    }
+
+    public Concept() {
 
     }
 
