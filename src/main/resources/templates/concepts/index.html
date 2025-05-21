@@ -13,14 +13,17 @@
     <main class="container">
         <div th:each="concept : ${concepts}" th:object="${concept}">
             <div class="row justify-content-center">
-                <h1 class="col-3">[[*{name}]]</h1>
+                <h1 class="col-5">[[*{name}]]</h1>
                 <div class="col-2 row align-items-center">
                     <h3 class="badge text-bg-success align-items-center" th:if="*{level.name() == 'BEGINNER'} ">
                         [[*{level}]]</h3>
                     <h3 class="badge text-bg-warning " th:if="*{level.name() == 'INTERMEDIATE'} ">[[*{level}]]</h3>
                     <h3 class="badge text-bg-danger" th:if="*{level.name() == 'HARD'} ">[[*{level}]]</h3>
                 </div>
-                <h2><a href="" class="btn btn-warning"><i class="fa-solid fa-house"></i></a></h2>
+                <h4 class="col-1 text-center"><a href="" class="btn btn-warning"><i
+                            class="fa-solid fa-pen-to-square"></i></a></h4>
+                <h4 class="col-1 text-center"><a href="" class="btn btn-danger"> <i
+                            class="fa-solid fa-trash-can"></i></a></h4>
             </div>
 
 
