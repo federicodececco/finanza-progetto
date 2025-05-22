@@ -5,8 +5,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -17,15 +16,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "concepts")
 public class Concept {
-
-    public enum Level {
-        BEGINNER, INTERMEDIATE, HARD
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,9 +33,8 @@ public class Concept {
 
     private String imgUrl;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "level must be equal to BEGINNER, INTERMEDIATE or HARD")
-    private Level level;
+    @NotBlank(message = "level must be equal to BEGINNER, INTERMEDIATE or HARD")
+    private String level;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
@@ -52,7 +45,7 @@ public class Concept {
     @JoinTable(name = "concept_tag", joinColumns = @JoinColumn(name = "concept_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
 
-    public Concept(Integer id, String name, String description, String imgUrl, Level level) {
+    public Concept(Integer id, String name, String description, String imgUrl, String level) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -97,11 +90,11 @@ public class Concept {
         this.imgUrl = imgUrl;
     }
 
-    public Level getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

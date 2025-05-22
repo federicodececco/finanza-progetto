@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+</head>
+
+<body>
+    <th:block th:fragment="navbar">
+        <nav class="container ">
+            <div>
+                <div class="row">
+                    <div class="col-2">
+                        <a th:href="@{/concepts}">Concetti</a>
+                    </div>
+                    <div class="col-2">
+                        <a th:href="@{/concepts}">Tag</a>
+                    </div>
+                    <div class="col-2">
+                        <a th:href="@{/categories}">Categorie</a>
+                    </div>
+                    <div class="col-2">
+                        <form th:action="@{/concepts/create}" method="get">
+                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi un concetto</button>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <form th:action="@{/categories/create}" method="get">
+                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi una categoria</button>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <form th:action="@{/concepts/create}" method="get">
+                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi un tag</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </th:block>
+
+</body>
+
+</html>

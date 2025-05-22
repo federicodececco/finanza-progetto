@@ -11,47 +11,39 @@
 <body>
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
     <main class="container">
-        <div th:each="concept : ${concepts}" th:object="${concept}">
+        <div th:each="category : ${categories}" th:object="${category}">
 
             <div class="row justify-content-center">
 
                 <!--! name -->
                 <h3 class="col-1 text-end row mb-0 px-0 align-items-center">
-                    <a th:href="@{/concepts/{id}(id=*{id})}">
+                    <a th:href="@{/categories/{id}(id=*{id})}">
                         <i class="fa-solid fa-location-arrow"></i>
                     </a>
                 </h3>
                 <h1 class="col-4">[[*{name}]]</h1>
 
-                <!-- ! badge level -->
-                <div class="col-2 row align-items-center">
-                    <h3 class="badge text-bg-success align-items-center" th:if="*{level == 'BEGINNER'} ">
-                        [[*{level}]]</h3>
-                    <h3 class="badge text-bg-warning " th:if="*{level == 'INTERMEDIATE'} ">[[*{level}]]</h3>
-                    <h3 class="badge text-bg-danger" th:if="*{level == 'HARD'} ">[[*{level}]]</h3>
-                </div>
-
                 <!--! modify -->
                 <h4 class="col-1 text-center">
-                    <a th:href="@{/concepts/edit/{id}(id=*{id})}" class="btn btn-warning"><i
+                    <a th:href="@{/categories/edit/{id}(id=*{id})}" class="btn btn-warning"><i
                             class="fa-solid fa-pen-to-square"></i></a>
                 </h4>
 
                 <!-- ! delete -->
                 <div class="col-1 row  align-items-center">
                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        th:data-bs-target="${'#deleteModal-' + concept.id}">
+                        th:data-bs-target="${'#deleteModal-' + category.id}">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
 
                 <!--! modal -->
-                <div class="modal fade" th:id="${'deleteModal-' + concept.id}" tabindex="-1"
-                    th:aria-labelledby="${'deleteModalLabel-' + concept.id}" aria-hidden="true">
+                <div class="modal fade" th:id="${'deleteModal-' + category.id}" tabindex="-1"
+                    th:aria-labelledby="${'deleteModalLabel-' + category.id}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + concept.id}">
+                                <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + category.id}">
                                     Attenzione!
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -63,7 +55,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Indietro</button>
-                                <form th:action="@{/concepts/delete/{id}(id=${concept.id})}" method="post">
+                                <form th:action="@{/categories/delete/{id}(id=${category.id})}" method="post">
                                     <button type="submit" class="btn btn-danger">Procedi</button>
                                 </form>
                             </div>
