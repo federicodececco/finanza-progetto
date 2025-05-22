@@ -34,7 +34,7 @@ public class TagController {
     @GetMapping("/{id}")
     public String show(@PathVariable Integer id, Model model) {
         model.addAttribute("tag", tagRepository.findById(id).get());
-
+        model.addAttribute("concepts", tagRepository.findById(id).get().getConcepts());
         return "/tags/show";
     }
 
@@ -51,7 +51,7 @@ public class TagController {
             return "/tags/create-edit";
         }
         tagRepository.save(tagForm);
-        return "redirect: /tags";
+        return "redirect:/tags";
     }
 
     @GetMapping("/edit/{id}")
@@ -70,7 +70,7 @@ public class TagController {
         }
 
         tagRepository.save(tagForm);
-        return "redirect:/tags" + tagForm.getId();
+        return "redirect:/tags/" + tagForm.getId();
     }
 
     @PostMapping("/delete/{id}")

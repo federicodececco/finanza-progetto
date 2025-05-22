@@ -78,7 +78,7 @@ public class CategoryController {
             return "categories/create-edit";
         }
         categoryRepository.save(formCategory);
-        return "redirect: /categories" + formCategory.getId();
+        return "redirect:/categories/" + formCategory.getId();
     }
 
     @PostMapping("/delete/{id}")
