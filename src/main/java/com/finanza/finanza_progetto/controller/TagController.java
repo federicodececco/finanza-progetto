@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.finanza.finanza_progetto.model.Tag;
-import com.finanza.finanza_progetto.repository.TagRepository;
+import com.finanza.finanza_progetto.service.TagService;
 
 import jakarta.validation.Valid;
 
@@ -16,25 +16,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/tags")
 public class TagController {
 
     @Autowired
-    TagRepository tagRepository;
+    TagService tagService;
 
     @GetMapping("")
     public String index(Model model) {
-        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("tags", tagService.findAll());
         return "/tags/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable Integer id, Model model) {
-        model.addAttribute("tag", tagRepository.findById(id).get());
-        model.addAttribute("concepts", tagRepository.findById(id).get().getConcepts());
+        model.addAttribute("tag", tagService.findById(id).get());
+        model.addAttribute("concepts", tagService.findById(id).get().getConcepts());
         return "/tags/show";
     }
 
@@ -50,13 +49,13 @@ public class TagController {
 
             return "/tags/create-edit";
         }
-        tagRepository.save(tagForm);
+        tagService.create(tagForm);
         return "redirect:/tags";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("tag", tagRepository.findById(id).get());
+        model.addAttribute("tag", tagService.findById(id).get());
         model.addAttribute("edit", true);
 
         return "/tags/create-edit";
@@ -69,13 +68,13 @@ public class TagController {
             return "/tags/create-edit";
         }
 
-        tagRepository.save(tagForm);
+        tagService.edit(tagForm);
         return "redirect:/tags/" + tagForm.getId();
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        tagRepository.delete(tagRepository.findById(id).get());
+        tagService.deleteById(id);
 
         return "redirect:/tags";
     }

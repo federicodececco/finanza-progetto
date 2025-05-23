@@ -2,54 +2,52 @@ package com.finanza.finanza_progetto.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.finanza.finanza_progetto.model.Concept;
-import com.finanza.finanza_progetto.repository.CategoryRepository;
-import com.finanza.finanza_progetto.repository.ConceptRepository;
-import com.finanza.finanza_progetto.repository.TagRepository;
+import com.finanza.finanza_progetto.service.CategoryService;
+import com.finanza.finanza_progetto.service.ConceptService;
+import com.finanza.finanza_progetto.service.TagService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/concepts")
 public class ConceptController {
 
     @Autowired
-    private ConceptRepository conceptRepository;
+    private ConceptService conceptService;
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
+    private TagService tagService;
 
     @GetMapping("")
     public String index(Model model) {
 
-        List<Concept> concepts = conceptRepository.findAll();
+        List<Concept> concepts = conceptService.findAll();
         model.addAttribute("concepts", concepts);
         return "concepts/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable Integer id, Model model) {
-        Concept concept = conceptRepository.findById(id).get();
-        model.addAttribute("concept", concept);
-        model.addAttribute("tags", concept.getTags());
-        model.addAttribute("category", concept.getCategory());
+        Optional<Concept> conceptOpt = conceptService.findById(id);
+        model.addAttribute("concept", conceptOpt.get());
+        model.addAttribute("tags", conceptOpt.get().getTags());
+        model.addAttribute("category", conceptOpt.get().getCategory());
         return "concepts/show";
     }
 
@@ -60,8 +58,8 @@ public class ConceptController {
         levels.add("INTERMEDIATE");
         levels.add("HARD");
         model.addAttribute("concept", new Concept());
-        model.addAttribute("tags", tagRepository.findAll());
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("tags", tagService.findAll());
+        model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("levels", levels);
         return "concepts/create-edit";
     }
@@ -74,27 +72,27 @@ public class ConceptController {
             levels.add("BEGINNER");
             levels.add("INTERMEDIATE");
             levels.add("HARD");
-            model.addAttribute("tags", tagRepository.findAll());
-            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("tags", tagService.findAll());
+            model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("levels", levels);
             return "/concepts/create-edit";
         }
-        conceptRepository.save(formConcept);
+        conceptService.create(formConcept);
         return "redirect:/concepts";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        Concept concept = conceptRepository.findById(id).get();
+        Concept concept = conceptService.findById(id).get();
         List<String> levels = new ArrayList<String>();
         levels.add("BEGINNER");
         levels.add("INTERMEDIATE");
         levels.add("HARD");
         model.addAttribute("levels", levels);
         model.addAttribute("concept", concept);
-        model.addAttribute("tags", tagRepository.findAll());
+        model.addAttribute("tags", tagService.findAll());
         model.addAttribute("tagsBelong", concept.getTags());
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("categories", categoryService.findAll());
         model.addAttribute("categoryBelong", concept.getCategory());
         model.addAttribute("edit", true);
         return "concepts/create-edit";
@@ -109,20 +107,18 @@ public class ConceptController {
             levels.add("INTERMEDIATE");
             levels.add("HARD");
             model.addAttribute("levels", levels);
-            model.addAttribute("tags", tagRepository.findAll());
-            model.addAttribute("categories", categoryRepository.findAll());
+            model.addAttribute("tags", tagService.findAll());
+            model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("edit", true);
             return "concepts/create-edit";
         }
-        conceptRepository.save(formConcept);
+        conceptService.edit(formConcept);
         return "redirect:/concepts/" + formConcept.getId();
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
-        Concept concept = conceptRepository.findById(id).get();
-
-        conceptRepository.delete(concept);
+        conceptService.deleteById(id);
         return "redirect:/concepts";
     }
 }

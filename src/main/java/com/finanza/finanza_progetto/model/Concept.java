@@ -2,10 +2,10 @@ package com.finanza.finanza_progetto.model;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,13 +36,14 @@ public class Concept {
     @NotBlank(message = "level must be equal to BEGINNER, INTERMEDIATE or HARD")
     private String level;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
-    @JsonIgnore
+    @JsonManagedReference
     private Category category;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "concept_tag", joinColumns = @JoinColumn(name = "concept_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JsonManagedReference
     private Set<Tag> tags;
 
     public Concept(Integer id, String name, String description, String imgUrl, String level) {

@@ -2,8 +2,11 @@ package com.finanza.finanza_progetto.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +30,7 @@ public class Category {
     private String description;
 
     @OneToMany(mappedBy = "category", cascade = { CascadeType.REMOVE })
+    @JsonBackReference
     private List<Concept> concepts;
 
     public Category(Integer id, String name,

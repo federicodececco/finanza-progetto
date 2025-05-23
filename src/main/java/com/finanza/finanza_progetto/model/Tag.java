@@ -2,7 +2,7 @@ package com.finanza.finanza_progetto.model;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,7 +24,7 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    @JsonIgnore
+    @JsonBackReference
     private Set<Concept> concepts;
 
     public Tag(Integer id, String name,
