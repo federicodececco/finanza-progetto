@@ -54,9 +54,9 @@ public class ConceptController {
     @GetMapping("/create")
     public String create(Model model) {
         List<String> levels = new ArrayList<String>();
-        levels.add("BEGINNER");
-        levels.add("INTERMEDIATE");
-        levels.add("HARD");
+        levels.add("basso");
+        levels.add("medio");
+        levels.add("alto");
         model.addAttribute("concept", new Concept());
         model.addAttribute("tags", tagService.findAll());
         model.addAttribute("categories", categoryService.findAll());
@@ -69,9 +69,9 @@ public class ConceptController {
             Model model) {
         if (bindingResult.hasErrors()) {
             List<String> levels = new ArrayList<String>();
-            levels.add("BEGINNER");
-            levels.add("INTERMEDIATE");
-            levels.add("HARD");
+            levels.add("basso");
+            levels.add("medio");
+            levels.add("alto");
             model.addAttribute("tags", tagService.findAll());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("levels", levels);

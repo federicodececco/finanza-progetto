@@ -28,8 +28,11 @@ public class Concept {
     @NotBlank(message = "Name cannot be empty, null or blanck!")
     private String name;
 
-    @Lob
+    @NotBlank(message = "descritpion cannot be empty,null or blanck!")
     private String description;
+
+    @Lob
+    private String fullDescription;
 
     private String imgUrl;
 
@@ -46,10 +49,11 @@ public class Concept {
     @JsonManagedReference
     private Set<Tag> tags;
 
-    public Concept(Integer id, String name, String description, String imgUrl, String level) {
+    public Concept(Integer id, String name, String description, String fullDescription, String imgUrl, String level) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.fullDescription = fullDescription;
         this.imgUrl = imgUrl;
         this.level = level;
 
@@ -81,6 +85,14 @@ public class Concept {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
     }
 
     public String getImgUrl() {
