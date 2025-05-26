@@ -13,7 +13,6 @@ import com.finanza.finanza_progetto.model.Tag;
 import com.finanza.finanza_progetto.service.TagService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/tags")
@@ -28,7 +27,7 @@ public class TagRestController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity show(@PathVariable Integer id) {
+    public ResponseEntity<Tag> show(@PathVariable Integer id) {
         Optional<Tag> tagOpt = tagService.findById(id);
         if (tagOpt.isEmpty()) {
             return new ResponseEntity<Tag>(HttpStatus.NOT_FOUND);
