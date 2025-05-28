@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finanza.finanza_progetto.model.Concept;
 import com.finanza.finanza_progetto.service.ConceptService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -35,6 +36,15 @@ public class ConceptRestController {
             return new ResponseEntity<Concept>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Concept>(conceptOpt.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("search/{slug}")
+    public ResponseEntity<Concept> showSlug(@PathVariable String slug) {
+        Optional<Concept> concept = conceptService.findBySlug(slug);
+        if (concept.isEmpty()) {
+            return new ResponseEntity<Concept>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<Concept>(concept.get(), HttpStatus.OK);
     }
 
 }

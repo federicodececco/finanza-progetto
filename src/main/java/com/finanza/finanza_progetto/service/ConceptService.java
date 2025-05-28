@@ -34,4 +34,9 @@ public class ConceptService {
     public void deleteById(Integer id) {
         conceptRepository.deleteById(id);
     }
+
+    public Optional<Concept> findBySlug(String slug) {
+        return conceptRepository.findBySlug(slug);
+    }
+
 }
