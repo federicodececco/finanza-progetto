@@ -28,6 +28,9 @@ public class Concept {
     @NotBlank(message = "Name cannot be empty, null or blanck!")
     private String name;
 
+    @NotBlank(message = "slug cannot be emtpy,null or balnck!")
+    private String slug;
+
     @NotBlank(message = "descritpion cannot be empty,null or blanck!")
     private String description;
 
@@ -56,6 +59,7 @@ public class Concept {
         this.fullDescription = fullDescription;
         this.imgUrl = imgUrl;
         this.level = level;
+        this.slug = name.toLowerCase().strip().replaceAll("\\s", "-");
 
     }
 
@@ -77,6 +81,14 @@ public class Concept {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String getDescription() {
