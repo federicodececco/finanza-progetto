@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finanza.finanza_progetto.model.Concept;
 import com.finanza.finanza_progetto.service.ConceptService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")

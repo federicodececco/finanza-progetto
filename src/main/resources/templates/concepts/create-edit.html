@@ -6,10 +6,10 @@
     <th:block th:replace="~{fragments/resources :: head}"></th:block>
 </head>
 
-<body>
+<body class="bg-secondary-subtle">
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 
-    <main class="container">
+    <main class="container mt-4">
         <form id="concept-form" th:action="${edit} ? @{/concepts/edit/{id}(id=${concept.id})} : @{/concepts/create}"
             method="post" th:object="${concept}">
 

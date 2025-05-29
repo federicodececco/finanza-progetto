@@ -19,7 +19,7 @@ public class FaqService {
         return faqRepository.findAll();
     }
 
-    public Optional<Faq> findByID(Integer id) {
+    public Optional<Faq> findById(Integer id) {
         return faqRepository.findById(id);
     }
 

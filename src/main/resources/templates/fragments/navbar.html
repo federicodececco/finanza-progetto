@@ -13,36 +13,41 @@
 
 <body>
     <th:block th:fragment="navbar">
-        <nav class="container ">
-            <div>
-                <div class="row">
-                    <div class="col-2">
-                        <a th:href="@{/concepts}">Concetti</a>
-                    </div>
-                    <div class="col-2">
-                        <a th:href="@{/tags}">Tag</a>
-                    </div>
-                    <div class="col-2">
-                        <a th:href="@{/categories}">Categorie</a>
-                    </div>
-                    <div class="col-2">
-                        <form th:action="@{/concepts/create}" method="get">
-                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi un concetto</button>
-                        </form>
-                    </div>
-                    <div class="col-2">
-                        <form th:action="@{/categories/create}" method="get">
-                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi una categoria</button>
-                        </form>
-                    </div>
-                    <div class="col-2">
-                        <form th:action="@{/tags/create}" method="get">
-                            <button type="submit" class="btn btn-sm btn-primary">Aggiungi un tag</button>
-                        </form>
-                    </div>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid ">
+                <span class="navbar-brand"> Generical Fintech</span>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link " th:href="@{/concepts}">Prodotti</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/categories}">Categorie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tags}">Tag</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/faq}">Faq</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/answers}">Risposte</a>
+                        </li>
+
+                    </ul>
                 </div>
+                <button class="btn btn-large btn-warning">LogOut</button>
             </div>
         </nav>
+
+
+
+
 
     </th:block>
 
