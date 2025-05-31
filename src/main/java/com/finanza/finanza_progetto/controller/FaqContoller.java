@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.finanza.finanza_progetto.model.Answer;
 import com.finanza.finanza_progetto.model.Faq;
 import com.finanza.finanza_progetto.service.FaqService;
 
@@ -38,35 +39,59 @@ public class FaqContoller {
 
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("faq", new Faq());
+        Faq faq = new Faq();
+        faq.addEmptyAnswers(4); // thymeleaf form
+        model.addAttribute("faq", faq);
         return "/faq/create-edit";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("faq") Faq formAnswer, Model model, BindingResult bindingResult) {
+    public String store(@Valid @ModelAttribute("faq") Faq formFaq, Model model, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/faq/create-edit";
         }
-        faqService.create(formAnswer);
+        // removes the empty answers
+        formFaq.getAnswers().removeIf(answer -> answer.getContent() == null || answer.getContent().trim().isEmpty());
+        // it sets the answer to the faq
+        for (Answer answer : formFaq.getAnswers()) {
+            answer.setFaq(formFaq);
+        }
+        faqService.create(formFaq);
         return "redirect:/faq";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
+        Faq faq = faqService.findById(id).get();
+        // adds empty answer
+        while (faq.getAnswers().size() < 4) {
+            Answer answer = new Answer();
+            answer.setFaq(faq);
+            faq.getAnswers().add(answer);
+
+        }
+
+        model.addAttribute("faq", faq);
         model.addAttribute("edit", true);
-        model.addAttribute("faq", faqService.findById(id).get());
 
         return "/faq/create-edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("faq") Faq formAnswer, Model model,
+    public String update(@Valid @ModelAttribute("faq") Faq formFaq, Model model,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/faq/create-edit";
         }
-        faqService.edit(formAnswer);
-        return "redirect:/faq" + formAnswer.getId();
+
+        formFaq.getAnswers().removeIf(answer -> answer.getContent() == null || answer.getContent().trim().isEmpty());
+        // it sets the answer to the faq
+        for (Answer answer : formFaq.getAnswers()) {
+            answer.setFaq(formFaq);
+        }
+
+        faqService.edit(formFaq);
+        return "redirect:/faq" + formFaq.getId();
     }
 
     @PostMapping("/delete/{id}")

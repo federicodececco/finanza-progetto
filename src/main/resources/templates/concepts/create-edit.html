@@ -10,82 +10,149 @@
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 
     <main class="container mt-4">
-        <form id="concept-form" th:action="${edit} ? @{/concepts/edit/{id}(id=${concept.id})} : @{/concepts/create}"
-            method="post" th:object="${concept}">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0" th:text="${edit} ? 'Modifica Concetto' : 'Crea Nuovo Concetto'"></h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="concept-form"
+                            th:action="${edit} ? @{/concepts/edit/{id}(id=${concept.id})} : @{/concepts/create}"
+                            method="post" th:object="${concept}">
 
-            <!-- name -->
-            <div class="mb-3">
-                <label class="form-label" for="name">Nome:</label>
-                <input class="form-control" type="text" id="name" th:field="*{name}" th:errorClass="is-invalid">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
-                    <ul>
-                        <li th:each="error : ${#fields.errors('name')}" th:text="${error}" />
-                    </ul>
-                </div>
-            </div>
+                            <div class="row">
 
-            <!-- description -->
-            <div class="mb-3">
-                <label class="form-label" for="description">Descrizione:</label>
-                <textarea class="form-control" type="text" id="description" th:field="*{description}"
-                    th:errorClass="is-invalid"></textarea>
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
-                    <ul>
-                        <li th:each="error : ${#fields.errors('description')}" th:text="${error}" />
-                    </ul>
-                </div>
-            </div>
+                                <div class="col-md-6">
+                                    <!--! naem -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold" for="name">
+                                            <i class="bi bi-lightbulb me-2"></i>Nome:
+                                        </label>
+                                        <input class="form-control" type="text" id="name" th:field="*{name}"
+                                            th:errorClass="is-invalid" placeholder="Inserisci il nome del concetto...">
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                                            <ul class="mb-0 ps-3">
+                                                <li th:each="error : ${#fields.errors('name')}" th:text="${error}"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-            <!-- imgUrl -->
-            <div class="mb-3">
-                <label class="form-label" for="imgUrl">Percorso immagine:</label>
-                <input class="form-control" type="text" id="imgUrl" th:field="*{imgUrl}" th:errorClass="is-invalid">
-                <div class="invalid-feedback" th:if="${#fields.hasErrors('imgUrl')}">
-                    <ul>
-                        <li th:each="error : ${#fields.errors('imgUrl')}" th:text="${error}" />
-                    </ul>
-                </div>
-            </div>
+                                    <!-- ~ Descritpion -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold" for="description">
+                                            <i class="bi bi-card-text me-2"></i>Descrizione:
+                                        </label>
+                                        <textarea class="form-control" id="description" th:field="*{description}"
+                                            th:errorClass="is-invalid" rows="4"
+                                            placeholder="Inserisci una descrizione dettagliata del concetto..."></textarea>
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">
+                                            <ul class="mb-0 ps-3">
+                                                <li th:each="error : ${#fields.errors('description')}"
+                                                    th:text="${error}"></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
-            <!-- level -->
-            <div class="mb-3">
-                <label class="form-label">Difficoltà:</label>
-                <div class="form-check" th:each="levelOption : ${levels}">
-                    <input class="form-check-input" type="radio" th:field="*{level}" th:value="${levelOption}"
-                        th:id="${'level-' + levelOption}">
-                    <label class="form-check-label" th:for="${'level-' + levelOption}" th:text="${levelOption}"></label>
-                </div>
-            </div>
+                                    <!-- ~ URl -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold" for="imgUrl">
+                                            <i class="bi bi-image me-2"></i>Percorso immagine:
+                                        </label>
+                                        <input class="form-control" type="text" id="imgUrl" th:field="*{imgUrl}"
+                                            th:errorClass="is-invalid" placeholder="https://esempio.com/immagine.jpg">
+                                        <div class="invalid-feedback" th:if="${#fields.hasErrors('imgUrl')}">
+                                            <ul class="mb-0 ps-3">
+                                                <li th:each="error : ${#fields.errors('imgUrl')}" th:text="${error}">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
 
-            <!-- tags -->
-            <div class="mb-3">
-                <label class="form-label">Tags:</label>
-                <div class="row">
-                    <div class="form-check col-3" th:each="tag : ${tags}">
-                        <input class="form-check-input" type="checkbox" th:field="*{tags}" th:value="${tag.id}"
-                            th:id="${'tag-' + tag.id}">
-                        <label class="form-check-label" th:for="${'tag-' + tag.id}" th:text="${tag.name}"></label>
+
+                                <div class="col-md-6">
+                                    <!-- ~ level -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">
+                                            <i class="bi bi-speedometer2 me-2"></i>Difficoltà:
+                                        </label>
+                                        <div class="card border-light">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex flex-column gap-2" th:each="levelOption : ${levels}">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" th:field="*{level}"
+                                                            th:value="${levelOption}" th:id="${'level-' + levelOption}">
+                                                        <label class="form-check-label fw-semibold"
+                                                            th:for="${'level-' + levelOption}"
+                                                            th:text="${levelOption}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- ~ Categor -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold">
+                                            <i class="bi bi-folder me-2"></i>Categoria:
+                                        </label>
+                                        <div class="card border-light">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex flex-column gap-2"
+                                                    th:each="categoryOption : ${categories}">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio"
+                                                            th:field="*{category}" th:value="${categoryOption.id}"
+                                                            th:id="${'category-' + categoryOption.id}">
+                                                        <label class="form-check-label fw-semibold"
+                                                            th:for="${'category-' + categoryOption.id}"
+                                                            th:text="${categoryOption.name}"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ~ Tags -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-tags me-2"></i>Tags:
+                                </label>
+                                <div class="card border-light">
+                                    <div class="card-body p-3">
+                                        <div class="row g-2">
+                                            <div class="col-md-4 col-sm-6" th:each="tag : ${tags}">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" th:field="*{tags}"
+                                                        th:value="${tag.id}" th:id="${'tag-' + tag.id}">
+                                                    <label class="form-check-label fw-semibold"
+                                                        th:for="${'tag-' + tag.id}" th:text="${tag.name}"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Bottoni -->
+                            <div class="d-flex gap-2 justify-content-end pt-3 border-top">
+                                <a th:href="@{/concepts}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-2"></i>Annulla
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save me-2"></i>
+                                    <span th:text="${edit} ? 'Aggiorna Concetto' : 'Crea Concetto'"></span>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <!-- category -->
-            <div class="mb-3">
-                <label class="form-label">Categoria:</label>
-                <div class="form-check" th:each="categoryOption : ${categories}">
-                    <input class="form-check-input" type="radio" th:field="*{category}" th:value="${categoryOption.id}"
-                        th:id="${'category-' + categoryOption.id}">
-                    <label class="form-check-label" th:for="${'category-' + categoryOption.id}"
-                        th:text="${categoryOption.name}"></label>
-                </div>
-            </div>
-
-            <!-- Submit button -->
-            <div class="mb-3">
-                <button type="submit" class="btn btn-primary">Salva</button>
-                <a th:href="@{/concepts}" class="btn btn-secondary">Annulla</a>
-            </div>
-        </form>
+        </div>
     </main>
 
     <th:block th:replace="~{fragments/resources :: script}"></th:block>

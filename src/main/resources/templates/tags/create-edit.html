@@ -6,14 +6,16 @@
     <th:block th:replace="~{fragments/resources :: head}"></th:block>
 </head>
 
-<body>
+
+
+<body class="bg-secondary-subtle">
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
 
-    <main class="container">
+    <main class="container mt-4">
         <form id="tag-form" th:action="${edit} ? @{/tags/edit/{id}(id=${tag.id})} : @{/tags/create}" method="post"
             th:object="${tag}">
 
-            <!-- ! name -->
+            <!-- !name -->
             <div class="mb-3">
                 <label class="form-label" for="name">Nome:</label>
                 <input class="form-control" type="text" id="name" th:field="*{name}" th:errorClass="is-invalid">
@@ -27,10 +29,11 @@
 
 
 
+
             <!-- Submit button -->
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Salva</button>
-                <a th:href="@{/tag}" class="btn btn-secondary">Annulla</a>
+                <a th:href="@{/tags}" class="btn btn-secondary">Annulla</a>
             </div>
         </form>
     </main>

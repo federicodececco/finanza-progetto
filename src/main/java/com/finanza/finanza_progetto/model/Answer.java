@@ -63,4 +63,9 @@ public class Answer {
         this.faq = faq;
     }
 
+    // verify it has content
+    public boolean isEmpty() {
+        return content == null || content.trim().isEmpty();
+    }
+
 }

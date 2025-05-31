@@ -1,5 +1,6 @@
 package com.finanza.finanza_progetto.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -31,7 +32,7 @@ public class Faq {
     public Faq(Integer id, String question, List<Answer> answers) {
         this.id = id;
         this.question = question;
-        this.answers = answers;
+        this.answers = answers != null ? answers : new ArrayList<>();
     }
 
     public Faq() {
@@ -58,6 +59,17 @@ public class Faq {
     }
 
     public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
+        for (Answer answer : answers) {
+            answer.setFaq(this);
+        }
+    }
+
+    // return count emptu answers, it is neede for the thymeleaf form
+    public void addEmptyAnswers(int count) {
+        for (int i = 0; i < count; i++) {
+            Answer answer = new Answer();
+            answer.setFaq(this);
+            this.answers.add(answer);
+        }
     }
 }

@@ -8,29 +8,27 @@
     <div th:replace="~{fragments/resources :: head}"></div>
 </head>
 
-
-
 <body class="bg-secondary-subtle">
     <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
     <main class="container-fluid mt-5 ">
-        <div th:each="tag : ${tags}" th:object="${tag}">
+        <div th:each="fac : ${faq}" th:object="${fac}">
 
             <div class="row justify-content-center border-bottom border-light border-3 ">
 
                 <!--! name -->
                 <h3 class="col-1 text-end row mb-0 px-0 align-items-center border-start border-light border-3">
-                    <a th:href="@{/tags/{id}(id=*{id})}">
+                    <a th:href="@{/faq/{id}(id=*{id})}">
                         <i class="fa-solid fa-location-arrow"></i>
                     </a>
                 </h3>
-                <h1 class="col-4">[[*{name}]]</h1>
+                <h1 class="col-4">[[*{question}]]</h1>
 
 
 
                 <!--! modify -->
                 <div class="col-1  row align-items-center px-3 border-start border-light border-3">
 
-                    <button class="btn btn-warning btn-sm"><a th:href="@{/tags/edit/{id}(id=*{id})}"> <i
+                    <button class="btn btn-warning btn-sm"><a th:href="@{/faq/edit/{id}(id=*{id})}"> <i
                                 class="fa-solid fa-pen-to-square"></i></a></button>
                 </div>
 
@@ -38,18 +36,18 @@
                 <!-- ! delete -->
                 <div class="col-1 row  align-items-center px-3">
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                        th:data-bs-target="${'#deleteModal-' + tag.id}">
+                        th:data-bs-target="${'#deleteModal-' + fac.id}">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
 
                 <!--! modal -->
-                <div class="modal fade" th:id="${'deleteModal-' + tag.id}" tabindex="-1"
-                    th:aria-labelledby="${'deleteModalLabel-' + tag.id}" aria-hidden="true">
+                <div class="modal fade" th:id="${'deleteModal-' + fac.id}" tabindex="-1"
+                    th:aria-labelledby="${'deleteModalLabel-' + fac.id}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + tag.id}">
+                                <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + fac.id}">
                                     Attenzione!
                                 </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -61,7 +59,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Indietro</button>
-                                <form th:action="@{/tags/delete/{id}(id=${tag.id})}" method="post">
+                                <form th:action="@{/faq/delete/{id}(id=${fac.id})}" method="post">
                                     <button type="submit" class="btn btn-danger">Procedi</button>
                                 </form>
                             </div>

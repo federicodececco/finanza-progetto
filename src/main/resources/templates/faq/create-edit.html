@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <!-- bootstrap css  -->
+    <th:block th:replace="~{fragments/resources :: head}"></th:block>
+</head>
+
+
+
+
+<body class="bg-secondary-subtle">
+    <th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+    <main class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0" th:text="${edit} ? 'Modifica FAQ' : 'Crea Nuova FAQ'"></h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="faq-form" th:action="${edit} ? @{/faq/edit/{id}(id=${faq.id})} : @{/faq/create}"
+                            method="post" th:object="${faq}">
+
+                            <!-- Domanda -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold" for="question">
+                                    <i class="bi bi-question-circle me-2"></i>Domanda:
+                                </label>
+                                <textarea class="form-control" id="question" th:field="*{question}"
+                                    th:errorClass="is-invalid" rows="3"
+                                    placeholder="Inserisci la domanda della FAQ..."></textarea>
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('question')}">
+                                    <ul class="mb-0 ps-3">
+                                        <li th:each="error : ${#fields.errors('question')}" th:text="${error}"></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Risposte -->
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">
+                                    <i class="bi bi-chat-left-text me-2"></i>Risposte:
+                                </label>
+                                <div class="row">
+                                    <!-- Risposta 1 -->
+                                    <div class="col-12 mb-3">
+                                        <div class="card border-light">
+                                            <div class="card-header bg-light py-2">
+                                                <p class="text-muted fw-semibold">Risposta 1</p>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <textarea class="form-control" th:field="*{answers[0].content}"
+                                                    th:errorClass="is-invalid" rows="3"
+                                                    placeholder="Inserisci la prima risposta..."></textarea>
+                                                <div class="invalid-feedback"
+                                                    th:if="${#fields.hasErrors('answers[0].content')}">
+                                                    <ul class="mb-0 ps-3">
+                                                        <li th:each="error : ${#fields.errors('answers[0].content')}"
+                                                            th:text="${error}"></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Risposta 2 -->
+                                    <div class="col-12 mb-3">
+                                        <div class="card border-light">
+                                            <div class="card-header bg-light py-2">
+                                                <p class="text-muted fw-semibold">Risposta 2 <span
+                                                        class="text-muted">(opzionale)</span></p>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <textarea class="form-control" th:field="*{answers[1].content}"
+                                                    th:errorClass="is-invalid" rows="3"
+                                                    placeholder="Inserisci la seconda risposta (opzionale)..."></textarea>
+                                                <div class="invalid-feedback"
+                                                    th:if="${#fields.hasErrors('answers[1].content')}">
+                                                    <ul class="mb-0 ps-3">
+                                                        <li th:each="error : ${#fields.errors('answers[1].content')}"
+                                                            th:text="${error}"></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Risposta 3 -->
+                                    <div class="col-12 mb-3">
+                                        <div class="card border-light">
+                                            <div class="card-header bg-light py-2">
+                                                <p class="text-muted fw-semibold">Risposta 3 <span
+                                                        class="text-muted">(opzionale)</span></p>
+                                            </div>
+                                            <div class="card-body p-3">
+                                                <textarea class="form-control" th:field="*{answers[2].content}"
+                                                    th:errorClass="is-invalid" rows="3"
+                                                    placeholder="Inserisci la terza risposta (opzionale)..."></textarea>
+                                                <div class="invalid-feedback"
+                                                    th:if="${#fields.hasErrors('answers[2].content')}">
+                                                    <ul class="mb-0 ps-3">
+                                                        <li th:each="error : ${#fields.errors('answers[2].content')}"
+                                                            th:text="${error}"></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Campi nascosti per gli ID delle risposte (necessari per l'edit) -->
+                            <input type="hidden" th:field="*{answers[0].id}"
+                                th:if="${edit and answers != null and answers.size() > 0}" />
+                            <input type="hidden" th:field="*{answers[1].id}"
+                                th:if="${edit and answers != null and answers.size() > 1}" />
+                            <input type="hidden" th:field="*{answers[2].id}"
+                                th:if="${edit and answers != null and answers.size() > 2}" />
+
+
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a th:href="@{/faq}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-arrow-left me-2"></i>Annulla
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save me-2"></i>
+                                    <span th:text="${edit} ? 'Aggiorna FAQ' : 'Crea FAQ'"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:replace="~{fragments/resources :: script}"></th:block>
+</body>
+
+</html>
