@@ -2,7 +2,7 @@
 
 -- Inserimento User
 
-INSERT INTO users (id, name, password) VALUES (1, "gigio", "{noop}123456");
+INSERT INTO users (id, username, password) VALUES (1, "gigio", "{noop}123456");
 
 -- Inserimento Role
 INSERT INTO roles (id, name) VALUES (1, "ADMIN");

@@ -14,17 +14,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final PasswordEncoder passwordEncoder;
-
-    SecurityConfig(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
     @Bean
     @SuppressWarnings("removal")
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
+                .requestMatchers("/**", "/").hasAnyAuthority("ADMIN")
                 .requestMatchers("/api/**", "/api").permitAll()
                 .and().formLogin()
                 .and().logout()
