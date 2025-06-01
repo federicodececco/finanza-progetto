@@ -15,9 +15,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    @SuppressWarnings("removal")
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
+                .requestMatchers("/webjars/**").permitAll()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/api/**", "/api").permitAll()
                 .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
                 .requestMatchers("/**", "/").hasAnyAuthority("ADMIN"))
