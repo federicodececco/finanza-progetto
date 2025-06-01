@@ -1,4 +1,15 @@
 -- Spring Boot import.sql file
+
+-- Inserimento User
+
+INSERT INTO users (id, name, password) VALUES (1, "gigio", "{noop}123456");
+
+-- Inserimento Role
+INSERT INTO roles (id, name) VALUES (1, "ADMIN");
+
+--Inserimento Associazione Role-User
+INSERT INTO role_user (user_id, role_id) VALUES (1, 1);
+
 -- Inserimento Categorie
 INSERT INTO categories (id, name, description) VALUES (1, 'Investimenti a Reddito Fisso', 'Prodotti finanziari che offrono un rendimento prevedibile e costante nel tempo, generalmente considerati a basso rischio.');
 INSERT INTO categories (id, name, description) VALUES (2, 'Investimenti Azionari', 'Prodotti finanziari che rappresentano una quota di proprietà in una società, offrendo potenziale di crescita elevato ma con rischio maggiore.');
