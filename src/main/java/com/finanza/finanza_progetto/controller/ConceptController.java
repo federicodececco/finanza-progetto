@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.finanza.finanza_progetto.model.Category;
 import com.finanza.finanza_progetto.model.Concept;
 import com.finanza.finanza_progetto.service.CategoryService;
 import com.finanza.finanza_progetto.service.ConceptService;
@@ -67,6 +68,9 @@ public class ConceptController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("concept") Concept formConcept, BindingResult bindingResult,
             Model model) {
+        formConcept.createSlug(formConcept.getName());
+        Category category = categoryService.findById(formConcept.getCategoryId()).orElse(null);
+        formConcept.setCategory(category);
         if (bindingResult.hasErrors()) {
             List<String> levels = new ArrayList<String>();
             levels.add("basso");
@@ -84,10 +88,11 @@ public class ConceptController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         Concept concept = conceptService.findById(id).get();
+        concept.setCategoryId(concept.getCategory().getId());
         List<String> levels = new ArrayList<String>();
-        levels.add("BEGINNER");
-        levels.add("INTERMEDIATE");
-        levels.add("HARD");
+        levels.add("basso");
+        levels.add("medio");
+        levels.add("alto");
         model.addAttribute("levels", levels);
         model.addAttribute("concept", concept);
         model.addAttribute("tags", tagService.findAll());
@@ -101,11 +106,14 @@ public class ConceptController {
     @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("concept") Concept formConcept, BindingResult bindingResult,
             Model model) {
+        formConcept.createSlug(formConcept.getName());
+        Category category = categoryService.findById(formConcept.getCategoryId()).orElse(null);
+        formConcept.setCategory(category);
         if (bindingResult.hasErrors()) {
             List<String> levels = new ArrayList<String>();
-            levels.add("BEGINNER");
-            levels.add("INTERMEDIATE");
-            levels.add("HARD");
+            levels.add("basso");
+            levels.add("medio");
+            levels.add("alto");
             model.addAttribute("levels", levels);
             model.addAttribute("tags", tagService.findAll());
             model.addAttribute("categories", categoryService.findAll());

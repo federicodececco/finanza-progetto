@@ -15,6 +15,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -28,7 +29,6 @@ public class Concept {
     @NotBlank(message = "Name cannot be empty, null or blanck!")
     private String name;
 
-    @NotBlank(message = "slug cannot be emtpy,null or balnck!")
     private String slug;
 
     @NotBlank(message = "descritpion cannot be empty,null or blanck!")
@@ -39,8 +39,10 @@ public class Concept {
 
     private String imgUrl;
 
-    @NotBlank(message = "level must be equal to BEGINNER, INTERMEDIATE or HARD")
     private String level;
+
+    @Transient
+    private Integer categoryId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
@@ -123,6 +125,14 @@ public class Concept {
         this.level = level;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -137,6 +147,10 @@ public class Concept {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public void createSlug(String name) {
+        this.slug = name.toLowerCase().strip().replaceAll("\\s", "-");
     }
 
 }
