@@ -17,13 +17,22 @@ public class SecurityConfig {
     @Bean
     @SuppressWarnings("removal")
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
-                .requestMatchers("/**", "/").hasAnyAuthority("ADMIN")
+        http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/**", "/api").permitAll()
-                .and().formLogin()
-                .and().logout()
-                .and().exceptionHandling();
+                .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
+                .requestMatchers("/**", "/").hasAnyAuthority("ADMIN"))
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/concepts"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessHandler(
+                                (request, response, authentication) -> response.sendRedirect("http://localhost:5173"))
+                        .invalidateHttpSession(true)
+                        .permitAll())
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/access-denied"));
 
         return http.build();
     }
