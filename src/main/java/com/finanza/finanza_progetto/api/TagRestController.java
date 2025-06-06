@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finanza.finanza_progetto.model.Tag;
 import com.finanza.finanza_progetto.service.TagService;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
+@CrossOrigin(origins = "https://splendorous-zuccutto-f57e63.netlify.app")
 @RequestMapping("/api/tags")
 public class TagRestController {
 
