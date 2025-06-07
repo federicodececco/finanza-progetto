@@ -41,6 +41,7 @@ public class FaqContoller {
     public String create(Model model) {
         Faq faq = new Faq();
         faq.addEmptyAnswers(4); // thymeleaf form
+        model.addAttribute("edit", false);
         model.addAttribute("faq", faq);
         return "/faq/create-edit";
     }

@@ -3,13 +3,15 @@
 -- Inserimento User
 
 INSERT INTO users (id, username, password) VALUES (1, "gigio", "{noop}123456");
-
+INSERT Into users (id, username, password) VALUES (2, "gigia", "{noop}654321");
 -- Inserimento Role
 INSERT INTO roles (id, name) VALUES (1, "ADMIN");
+INSERT INTO roles (id, name) VALUES (2, "USER");
 
 --Inserimento Associazione Role-User
 INSERT INTO role_user (user_id, role_id) VALUES (1, 1);
-
+INSERT INTO role_user (user_id, role_id) VALUES (1, 2);
+INSERT INTO role_user (user_id, role_id) VALUES (2, 2);
 -- Inserimento Categorie
 INSERT INTO categories (id, name, description) VALUES (1, 'Investimenti a Reddito Fisso', 'Prodotti finanziari che offrono un rendimento prevedibile e costante nel tempo, generalmente considerati a basso rischio.');
 INSERT INTO categories (id, name, description) VALUES (2, 'Investimenti Azionari', 'Prodotti finanziari che rappresentano una quota di proprietà in una società, offrendo potenziale di crescita elevato ma con rischio maggiore.');
