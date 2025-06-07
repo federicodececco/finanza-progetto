@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-@CrossOrigin(origins = "https://splendorous-zuccutto-f57e63.netlify.app")
+@CrossOrigin(origins = "https://generical-fintech.netlify.app")
 @RequestMapping("/api/faq")
 public class FaqRestController {
 

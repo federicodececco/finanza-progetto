@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@CrossOrigin(origins = "https://splendorous-zuccutto-f57e63.netlify.app")
+@CrossOrigin(origins = "https://generical-fintech.netlify.app")
 @RequestMapping("/api/tags")
 public class TagRestController {
 
