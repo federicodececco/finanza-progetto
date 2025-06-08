@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessHandler(
-                                (request, response, authentication) -> response.sendRedirect("http://localhost:5173"))
+                                (request, response, authentication) -> response
+                                        .sendRedirect("https://generical-fintech.netlify.app/"))
                         .invalidateHttpSession(true)
                         .permitAll())
                 .exceptionHandling(ex -> ex
