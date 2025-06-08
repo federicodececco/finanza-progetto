@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import com.finanza.finanza_progetto.model.Category;
 import com.finanza.finanza_progetto.service.CategoryService;
 
 @RestController
+@CrossOrigin(origins = "https://generical-fintech.netlify.app")
 @RequestMapping("/api/categories")
 public class CategoryRestController {
 

@@ -31,8 +31,9 @@
                 <ul class="list-group mx-4 list-group-numbered col-2 border-3 border-light border-end">
                     <li th:each="tag : ${tags}" th:text="${tag.name}"></li>
                 </ul>
-                <div class="col-2  row align-items-center px-3  offset-md-4 border-light border-3 mb-4">
-                    <h3 class="text-center"> Modifica:</h3>
+                <div sec:authorize="hasAuthority('ADMIN')"
+                    class="col-2  row align-items-center px-3  offset-md-4 border-light border-3 mb-4">
+                    <h3 class=" text-center"> Modifica:</h3>
                     <button class="btn btn-warning btn-sm"><a th:href="@{/concepts/edit/{id}(id=*{id})}"> <i
                                 class="fa-solid fa-pen-to-square"></i></a></button>
                 </div>

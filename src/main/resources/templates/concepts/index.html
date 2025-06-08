@@ -32,7 +32,8 @@
                 </div>
 
                 <!--! modify -->
-                <div class="col-1  row align-items-center px-3 border-start border-light border-3">
+                <div class="col-1  row align-items-center px-3 border-start border-light border-3"
+                    sec:authorize="hasAuthority('ADMIN')">
 
                     <button class="btn btn-warning btn-sm"><a th:href="@{/concepts/edit/{id}(id=*{id})}"> <i
                                 class="fa-solid fa-pen-to-square"></i></a></button>
@@ -40,39 +41,38 @@
 
 
                 <!-- ! delete -->
-                <div class="col-1 row  align-items-center px-3">
+                <div class="col-1 row  align-items-center px-3" sec:authorize="hasAuthority('ADMIN')">
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                         th:data-bs-target="${'#deleteModal-' + concept.id}">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
+            </div>
 
-                <!--! modal -->
-                <div class="modal fade" th:id="${'deleteModal-' + concept.id}" tabindex="-1"
-                    th:aria-labelledby="${'deleteModalLabel-' + concept.id}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + concept.id}">
-                                    Attenzione!
-                                </h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body text-center">
-                                Cliccando su procedi la risorsa verrà irreversibilmente cancellata!
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Indietro</button>
-                                <form th:action="@{/concepts/delete/{id}(id=${concept.id})}" method="post">
-                                    <button type="submit" class="btn btn-danger">Procedi</button>
-                                </form>
-                            </div>
+            <!--! modal -->
+            <div class="modal fade" th:id="${'deleteModal-' + concept.id}" tabindex="-1"
+                th:aria-labelledby="${'deleteModalLabel-' + concept.id}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 " th:id="${'deleteModalLabel-' + concept.id}">
+                                Attenzione!
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            Cliccando su procedi la risorsa verrà irreversibilmente cancellata!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Indietro</button>
+                            <form th:action="@{/concepts/delete/{id}(id=${concept.id})}" method="post">
+                                <button type="submit" class="btn btn-danger">Procedi</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div>
             <form class="row justify-content-center pt-4" th:action="@{/concepts/create}" method="get"><button

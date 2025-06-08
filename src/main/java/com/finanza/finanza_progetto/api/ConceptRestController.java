@@ -16,7 +16,7 @@ import com.finanza.finanza_progetto.model.Concept;
 import com.finanza.finanza_progetto.service.ConceptService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://generical-fintech.netlify.app")
 @RequestMapping("/api/concepts")
 public class ConceptRestController {
 

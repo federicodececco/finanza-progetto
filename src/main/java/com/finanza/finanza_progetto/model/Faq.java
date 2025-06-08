@@ -36,6 +36,7 @@ public class Faq {
     }
 
     public Faq() {
+        this.answers = new ArrayList<>();
     }
 
     public Integer getId() {

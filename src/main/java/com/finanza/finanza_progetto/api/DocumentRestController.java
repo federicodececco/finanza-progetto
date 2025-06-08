@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "https://generical-fintech.netlify.app")
 @RequestMapping("/api/documents")
 public class DocumentRestController {
 

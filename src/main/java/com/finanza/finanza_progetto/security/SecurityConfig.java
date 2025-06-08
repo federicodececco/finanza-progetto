@@ -20,8 +20,8 @@ public class SecurityConfig {
                 .requestMatchers("/webjars/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/api/**", "/api").permitAll()
-                .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
-                .requestMatchers("/**", "/").hasAnyAuthority("ADMIN"))
+                .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ADMIN", "USER")
+                .requestMatchers("/**", "/").hasAnyAuthority("ADMIN", "USER"))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
