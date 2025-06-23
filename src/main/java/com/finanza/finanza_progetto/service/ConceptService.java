@@ -39,4 +39,8 @@ public class ConceptService {
         return conceptRepository.findBySlug(slug);
     }
 
+    public List<Concept> findByName(String query) {
+        return conceptRepository.findAllByNameContaining(query);
+    }
+
 }

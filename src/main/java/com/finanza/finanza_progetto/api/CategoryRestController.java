@@ -16,7 +16,7 @@ import com.finanza.finanza_progetto.model.Category;
 import com.finanza.finanza_progetto.service.CategoryService;
 
 @RestController
-@CrossOrigin(origins = "https://generical-fintech.netlify.app")
+@CrossOrigin(origins = "https://main.d3qgrorazttcr0.amplifyapp.com")
 @RequestMapping("/api/categories")
 public class CategoryRestController {
 

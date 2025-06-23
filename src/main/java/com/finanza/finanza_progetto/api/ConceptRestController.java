@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finanza.finanza_progetto.model.Concept;
 import com.finanza.finanza_progetto.service.ConceptService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
-@CrossOrigin(origins = "https://generical-fintech.netlify.app")
+@CrossOrigin(origins = "https://main.d3qgrorazttcr0.amplifyapp.com")
 @RequestMapping("/api/concepts")
 public class ConceptRestController {
 
@@ -44,6 +45,14 @@ public class ConceptRestController {
             return new ResponseEntity<Concept>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Concept>(concept.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("search/name")
+    public List<Concept> searchByName(@RequestParam String query) {
+
+        List<Concept> concepts = conceptService.findByName(query.trim());
+
+        return concepts;
     }
 
 }
